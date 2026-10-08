@@ -12,7 +12,8 @@ class AssuranceSlide extends FlutterDeckSlideWidget {
           route: '/assurance',
           title: '33. Assurance',
           steps: 3,
-          speakerNotes: '- Replace "is it safe" with "how much assurance do I need."',
+          speakerNotes:
+              '- Replace "is it safe" with "how much assurance do I need."',
         ),
       );
 
@@ -23,9 +24,18 @@ class AssuranceSlide extends FlutterDeckSlideWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const BigText('Is this package safe?', fontSize: 48, muted: true, strike: true),
+            const BigText(
+              'Is this package safe?',
+              fontSize: 48,
+              muted: true,
+              strike: true,
+            ),
             const SizedBox(height: 24),
-            const BigText('How much assurance do I need for this dependency?', fontSize: 56, accent: true),
+            const BigText(
+              'How much assurance do I need for this dependency?',
+              fontSize: 56,
+              accent: true,
+            ),
             const SizedBox(height: 56),
             Reveal(
               step: 2,
@@ -43,8 +53,14 @@ class AssuranceSlide extends FlutterDeckSlideWidget {
                     children: const [
                       Node('Pure utility package', fontSize: 26),
                       Node('Package with a build hook', fontSize: 26),
-                      Node('Package downloading an external executable', fontSize: 26),
-                      Node('Package handling authentication / payment', fontSize: 26),
+                      Node(
+                        'Package downloading an external executable',
+                        fontSize: 26,
+                      ),
+                      Node(
+                        'Package handling authentication / payment',
+                        fontSize: 26,
+                      ),
                       Node('Closed-source prebuilt binary', fontSize: 26),
                     ],
                   ),
@@ -52,7 +68,13 @@ class AssuranceSlide extends FlutterDeckSlideWidget {
               ),
             ),
             const SizedBox(height: 56),
-            const Reveal(step: 3, child: BigText('Review effort should be proportional to risk.', fontSize: 48)),
+            const Reveal(
+              step: 3,
+              child: BigText(
+                'Review effort should be proportional to risk.',
+                fontSize: 48,
+              ),
+            ),
           ],
         ),
       ),

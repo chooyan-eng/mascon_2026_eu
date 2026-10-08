@@ -10,8 +10,11 @@ class AttackSurfacesSlide extends FlutterDeckSlideWidget {
         configuration: const FlutterDeckSlideConfiguration(
           route: '/attack-surfaces',
           title: '11. Attack surfaces',
-          header: FlutterDeckHeaderConfiguration(title: 'One Dart package, many attack surfaces'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'One Dart package, many attack surfaces',
+          ),
           speakerNotes:
+              '- Transition: the story so far applies to almost any ecosystem; here, take Flutter / Dart packages as the example and see how it looks there.\n'
               '- Even a single Dart package has several places where its code can run.\n'
               '- Runtime code ends up on the end-user device; the others run on my machine or CI.\n'
               '- No ranking, and no surface is singled out yet.',
@@ -43,7 +46,13 @@ class AttackSurfacesSlide extends FlutterDeckSlideWidget {
                     children: [
                       SizedBox(
                         width: 640,
-                        child: Text(name, style: const TextStyle(fontSize: 40, color: DeckColors.onSurface)),
+                        child: Text(
+                          name,
+                          style: const TextStyle(
+                            fontSize: 40,
+                            color: DeckColors.onSurface,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 24),
                       Tag(where),

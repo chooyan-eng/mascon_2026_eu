@@ -5,7 +5,14 @@
 // (core/lib/src/graph/graph_view_model.dart), reduced to what the slide needs.
 
 /// Node kinds across ecosystems.
-enum NodeKind { dartPackage, pod, swiftpmPackage, mavenArtifact, gradlePlugin, bundledBinary }
+enum NodeKind {
+  dartPackage,
+  pod,
+  swiftpmPackage,
+  mavenArtifact,
+  gradlePlugin,
+  bundledBinary,
+}
 
 /// Edge kinds.
 enum EdgeKind { dependsOn, vendors, declares }
@@ -14,7 +21,13 @@ enum EdgeKind { dependsOn, vendors, declares }
 enum Ecosystem { dart, ios, android }
 
 class GraphNode {
-  GraphNode({required this.kind, required this.name, required this.version, this.x = 0, this.y = 0});
+  GraphNode({
+    required this.kind,
+    required this.name,
+    required this.version,
+    this.x = 0,
+    this.y = 0,
+  });
 
   final NodeKind kind;
   final String name;
@@ -33,7 +46,11 @@ class GraphEdge {
 
 /// Dependency graph with derived lookup structures.
 class GraphData {
-  GraphData({required this.nodes, required this.edges, required this.rootIndex}) {
+  GraphData({
+    required this.nodes,
+    required this.edges,
+    required this.rootIndex,
+  }) {
     outEdges = List.generate(nodes.length, (_) => <GraphEdge>[]);
     inEdges = List.generate(nodes.length, (_) => <GraphEdge>[]);
     for (final e in edges) {
@@ -112,7 +129,9 @@ class GraphData {
     final nodes = [
       for (final n in json['nodes'] as List)
         GraphNode(
-          kind: NodeKind.values.byName((n as Map<String, dynamic>)['k'] as String),
+          kind: NodeKind.values.byName(
+            (n as Map<String, dynamic>)['k'] as String,
+          ),
           name: n['n'] as String,
           version: n['v'] as String,
           x: (n['x'] as num?)?.toDouble() ?? 0,
@@ -121,9 +140,17 @@ class GraphData {
     ];
     final edges = [
       for (final e in json['edges'] as List)
-        GraphEdge((e as List)[0] as int, e[1] as int, EdgeKind.values[e[2] as int]),
+        GraphEdge(
+          (e as List)[0] as int,
+          e[1] as int,
+          EdgeKind.values[e[2] as int],
+        ),
     ];
-    return GraphData(nodes: nodes, edges: edges, rootIndex: json['root'] as int);
+    return GraphData(
+      nodes: nodes,
+      edges: edges,
+      rootIndex: json['root'] as int,
+    );
   }
 
   Map<String, dynamic> toJson() => {

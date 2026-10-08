@@ -11,7 +11,9 @@ class SourceIntegrityProvenanceSlide extends FlutterDeckSlideWidget {
           route: '/source-integrity-provenance',
           title: '13. Source, integrity, provenance',
           steps: 2,
-          header: FlutterDeckHeaderConfiguration(title: 'Three different questions'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'Three different questions',
+          ),
           speakerNotes:
               '- Provenance tells you where the bytes came from, not whether the source is safe.\n'
               '- [NEEDS VERIFICATION] provenance / attestation support and how much to explain.',
@@ -29,11 +31,29 @@ class SourceIntegrityProvenanceSlide extends FlutterDeckSlideWidget {
             const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: InfoCard(title: 'Source review', lines: ['Is this source behavior acceptable?'], fontSize: 28)),
+                Expanded(
+                  child: InfoCard(
+                    title: 'Source review',
+                    lines: ['Is this source behavior acceptable?'],
+                    fontSize: 28,
+                  ),
+                ),
                 SizedBox(width: 32),
-                Expanded(child: InfoCard(title: 'Artifact integrity', lines: ['Are these the exact bytes I expected?'], fontSize: 28)),
+                Expanded(
+                  child: InfoCard(
+                    title: 'Artifact integrity',
+                    lines: ['Are these the exact bytes I expected?'],
+                    fontSize: 28,
+                  ),
+                ),
                 SizedBox(width: 32),
-                Expanded(child: InfoCard(title: 'Build provenance', lines: ['Where did these bytes come from?'], fontSize: 28)),
+                Expanded(
+                  child: InfoCard(
+                    title: 'Build provenance',
+                    lines: ['Where did these bytes come from?'],
+                    fontSize: 28,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 72),

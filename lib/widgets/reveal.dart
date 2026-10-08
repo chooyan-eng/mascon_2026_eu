@@ -5,7 +5,12 @@ import 'package:flutter_deck/flutter_deck.dart';
 ///
 /// The child keeps its layout space so that content does not jump.
 class Reveal extends StatelessWidget {
-  const Reveal({required this.step, required this.child, this.keepSpace = true, super.key});
+  const Reveal({
+    required this.step,
+    required this.child,
+    this.keepSpace = true,
+    super.key,
+  });
 
   final int step;
   final Widget child;

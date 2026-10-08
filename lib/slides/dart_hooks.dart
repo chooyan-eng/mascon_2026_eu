@@ -28,12 +28,21 @@ class DartHooksSlide extends FlutterDeckSlideWidget {
             children: [
               SizedBox(
                 width: 640,
-                child: InfoCard(title: 'Build hook', lines: ['hook/build.dart', "Today's focus"], accent: true, fontSize: 32),
+                child: InfoCard(
+                  title: 'Build hook',
+                  lines: ['hook/build.dart', "Today's focus"],
+                  accent: true,
+                  fontSize: 32,
+                ),
               ),
               SizedBox(width: 64),
               SizedBox(
                 width: 640,
-                child: InfoCard(title: 'Link hook', lines: ['hook/link.dart', 'Mentioned briefly'], fontSize: 32),
+                child: InfoCard(
+                  title: 'Link hook',
+                  lines: ['hook/link.dart', 'Mentioned briefly'],
+                  fontSize: 32,
+                ),
               ),
             ],
           ),

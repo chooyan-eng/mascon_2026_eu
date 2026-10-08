@@ -54,15 +54,28 @@ class WhichDependencyGraphSlide extends FlutterDeckSlideWidget {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize: 30,
-                                color: i == rows.length - 1 ? DeckColors.accent : DeckColors.onSurface,
+                                color: i == rows.length - 1
+                                    ? DeckColors.accent
+                                    : DeckColors.onSurface,
                               ),
                             ),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
-                            child: Icon(Icons.arrow_forward_rounded, color: DeckColors.muted, size: 30),
+                            child: Icon(
+                              Icons.arrow_forward_rounded,
+                              color: DeckColors.muted,
+                              size: 30,
+                            ),
                           ),
-                          SizedBox(width: 620, child: Node(lock, fontSize: 26, accent: i == rows.length - 1)),
+                          SizedBox(
+                            width: 620,
+                            child: Node(
+                              lock,
+                              fontSize: 26,
+                              accent: i == rows.length - 1,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -70,7 +83,14 @@ class WhichDependencyGraphSlide extends FlutterDeckSlideWidget {
               ),
             ),
             const SizedBox(height: 48),
-            const Reveal(step: 3, child: BigText('Which dependency graph?', fontSize: 64, accent: true)),
+            const Reveal(
+              step: 3,
+              child: BigText(
+                'Which dependency graph?',
+                fontSize: 64,
+                accent: true,
+              ),
+            ),
           ],
         ),
       ),

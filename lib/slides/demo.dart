@@ -24,7 +24,11 @@ class DemoSlide extends FlutterDeckSlideWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const BigText('[TODO: prerecorded terminal capture / screenshots]', fontSize: 40, muted: true),
+            const BigText(
+              '[TODO: prerecorded terminal capture / screenshots]',
+              fontSize: 40,
+              muted: true,
+            ),
             const SizedBox(height: 48),
             Wrap(
               spacing: 16,

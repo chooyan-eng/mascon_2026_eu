@@ -10,7 +10,9 @@ class MitigationRevisitedSlide extends FlutterDeckSlideWidget {
           route: '/mitigation-revisited',
           title: '31. Mitigation revisited',
           steps: 3,
-          header: FlutterDeckHeaderConfiguration(title: 'Going deeper added two more attack paths'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'Going deeper added two more attack paths',
+          ),
           speakerNotes:
               '- Same table as before. The deep dive and the native layer added two rows.\n'
               '- These rows only exist because we understood the mechanism.\n'
@@ -29,7 +31,11 @@ class MitigationRevisitedSlide extends FlutterDeckSlideWidget {
             rowSteps: [1, 1, 1, 2, 3],
             accentRows: {3, 4},
             columns: ['Attack path', 'Mitigation', 'Does not stop'],
-            columnWidths: {0: FlexColumnWidth(1.1), 1: FlexColumnWidth(1.6), 2: FlexColumnWidth(1.6)},
+            columnWidths: {
+              0: FlexColumnWidth(1.1),
+              1: FlexColumnWidth(1.6),
+              2: FlexColumnWidth(1.6),
+            },
             rows: [
               [
                 'Unexpected package update',

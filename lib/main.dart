@@ -11,7 +11,7 @@ void main() {
 /// Slide deck for "Security Risks of Packages in Mobile App Development".
 ///
 /// All on-slide text is defined in `docs/slides.md`. Keep this code in sync
-/// with that file.
+/// with that file. Design language: docs/design_handoff_mascon_deck/README.md.
 class MasconDeck extends StatelessWidget {
   const MasconDeck({super.key});
 
@@ -26,11 +26,20 @@ class MasconDeck extends StatelessWidget {
         ),
         // Swipe gestures are limited to mobile so that dragging the interactive
         // dependency graph (slide 04) does not change slides on desktop / web.
-        controls: const FlutterDeckControlsConfiguration(gestures: FlutterDeckGesturesConfiguration.mobileOnly()),
-        footer: const FlutterDeckFooterConfiguration(showFooter: true, showSlideNumbers: true, showSocialHandle: true),
+        controls: const FlutterDeckControlsConfiguration(
+          gestures: FlutterDeckGesturesConfiguration.mobileOnly(),
+        ),
+        // Slides draw their own footer (handle + 2-digit page number).
+        footer: const FlutterDeckFooterConfiguration(showFooter: false),
         header: const FlutterDeckHeaderConfiguration(showHeader: false),
-        marker: const FlutterDeckMarkerConfiguration(color: DeckColors.accent, strokeWidth: 8),
-        progressIndicator: const FlutterDeckProgressIndicator.solid(color: DeckColors.accent, backgroundColor: DeckColors.surfaceAlt),
+        marker: const FlutterDeckMarkerConfiguration(
+          color: DeckColors.accent,
+          strokeWidth: 8,
+        ),
+        progressIndicator: const FlutterDeckProgressIndicator.solid(
+          color: DeckColors.accent,
+          backgroundColor: DeckColors.rule,
+        ),
         slideSize: FlutterDeckSlideSize.fromAspectRatio(
           aspectRatio: const FlutterDeckAspectRatio.ratio16x9(),
           resolution: const FlutterDeckResolution.fhd(),
@@ -42,11 +51,9 @@ class MasconDeck extends StatelessWidget {
       themeMode: ThemeMode.dark,
       speakerInfo: const FlutterDeckSpeakerInfo(
         name: 'Tsuyoshi Chujo',
-        description: 'Flutter developer, package author, from Japan',
-        socialHandle: '@chooyan_i18n',
-        // TODO: place assets/speaker.png, register it in pubspec.yaml, and set
-        // `showSpeakerImage` in lib/widgets/speaker_info.dart to true.
-        imagePath: 'assets/speaker.png',
+        description: 'Flutter developer · package author',
+        socialHandle: '@tsuyoshi_chujo',
+        imagePath: 'assets/me_photo.jpg',
       ),
       slides: const [
         TitleSlide(),
@@ -54,38 +61,29 @@ class MasconDeck extends StatelessWidget {
         NumberSlide(),
         DependencyGraphSlide(),
         SupplyChainRiskSlide(),
-        SupplyChainSlide(),
+        ImpactExamplesSlide(),
         RealIncidentSlide(),
-        AttackPathASlide(),
-        TwoImpactPathsSlide(),
+        SupplyChainSlide(),
         ExistsVsExecutesSlide(),
-        AttackSurfacesSlide(),
-        SurfaceTriggersSlide(),
-        SourceIntegrityProvenanceSlide(),
-        AttackPathToMitigationSlide(),
+        ExecutionSurfacesSlide(),
         DeepDiveIntroSlide(),
-        DartHooksSlide(),
         LegitimatePurposeSlide(),
-        ExecutionModelSlide(),
-        FollowOneHookSlide(),
-        DemoSlide(),
-        ExternalArtifactSlide(),
+        RealHookCodeSlide(),
+        VersionsChangeSlide(),
         PackageUnchangedSlide(),
-        ExistingTrustedPathSlide(),
-        BaselineSlide(),
+        ExternalArtifactSlide(),
+        WhatBuildConsumesSlide(),
+        InspectPackagesSlide(),
+        DeepDiveRecapSlide(),
+        ZoomOutSlide(),
         EverySurfaceSlide(),
         BeyondDartSlide(),
-        WhatBuildConsumesSlide(),
         SourceVsBinarySlide(),
-        AndroidIosSlide(),
-        WhichDependencyGraphSlide(),
-        MitigationRevisitedSlide(),
+        MitigationCooldownSlide(),
+        MitigationLockfileSlide(),
         NoMagicSlide(),
-        AssuranceSlide(),
         AllOfThemSlide(),
-        AiSlide(),
         TakeawaysSlide(),
-        GoOneLevelDeeperSlide(),
         ThankYouSlide(),
       ],
     );

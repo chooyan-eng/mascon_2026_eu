@@ -10,7 +10,9 @@ class FollowOneHookSlide extends FlutterDeckSlideWidget {
           route: '/follow-one-hook',
           title: '19. Follow one hook',
           steps: 8,
-          header: FlutterDeckHeaderConfiguration(title: 'Follow one hook all the way down'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'Follow one hook all the way down',
+          ),
           speakerNotes:
               '- Center of the talk. Show how I investigated, not only the result.\n'
               '- TODO: decide which package to follow and what was observed.',

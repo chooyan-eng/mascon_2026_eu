@@ -10,7 +10,9 @@ class AttackPathASlide extends FlutterDeckSlideWidget {
           route: '/attack-path-a',
           title: '08. Attack path A',
           steps: 5,
-          header: FlutterDeckHeaderConfiguration(title: 'Attack path A: a malicious package release'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'Attack path A: a malicious package release',
+          ),
           speakerNotes:
               '- Generalize the incident we just saw. This is the typical story.\n'
               '- The important part is where it goes from here.',

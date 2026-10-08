@@ -22,7 +22,10 @@ class GoOneLevelDeeperSlide extends FlutterDeckSlideWidget {
           children: [
             BigText('Go one level deeper.', fontSize: 96, accent: true),
             SizedBox(height: 64),
-            BigText('Pick one part of your own development environment.', fontSize: 36),
+            BigText(
+              'Pick one part of your own development environment.',
+              fontSize: 36,
+            ),
             SizedBox(height: 24),
             BigText(
               'Read the documentation. Look at the implementation. '

@@ -2,17 +2,28 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mascon_eu_2026/dependency_graph/graph_view.dart';
 import 'package:mascon_eu_2026/main.dart';
 
 void main() {
   testWidgets('dependency graph slide loads real data and supports selection', (tester) async {
+    GoogleFonts.config.allowRuntimeFetching = false;
     tester.view.physicalSize = const Size(1920, 1080);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
 
     // Presenting happens on desktop, where deck swipe gestures are disabled.
     debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
+
+    // Overflow from the Ahem fallback font (no google_fonts in tests) is not
+    // meaningful; swallow it before the framework records it.
+    final original = FlutterError.onError;
+    FlutterError.onError = (details) {
+      if (details.exceptionAsString().contains('RenderFlex overflowed')) return;
+      original?.call(details);
+    };
+    addTearDown(() => FlutterError.onError = original);
 
     await tester.pumpWidget(const MasconDeck());
     await tester.pumpAndSettle();

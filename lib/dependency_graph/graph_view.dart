@@ -11,9 +11,9 @@ import 'graph_model.dart';
 
 /// Colors per ecosystem.
 Color ecoColor(Ecosystem eco) => switch (eco) {
-  Ecosystem.dart => const Color(0xFF5CC8FF),
-  Ecosystem.ios => const Color(0xFFD7A6FF),
-  Ecosystem.android => const Color(0xFF7BD88F),
+  Ecosystem.dart => DeckColors.sub,
+  Ecosystem.ios => DeckColors.accent,
+  Ecosystem.android => DeckColors.gray,
 };
 
 String ecoLabel(Ecosystem eco) => switch (eco) {
@@ -84,7 +84,8 @@ class DependencyGraphView extends StatefulWidget {
   State<DependencyGraphView> createState() => DependencyGraphViewState();
 }
 
-class DependencyGraphViewState extends State<DependencyGraphView> with SingleTickerProviderStateMixin {
+class DependencyGraphViewState extends State<DependencyGraphView>
+    with SingleTickerProviderStateMixin {
   // View transform: screen = world * k + (tx, ty).
   double _tx = 0, _ty = 0, _k = 1;
   Size _size = Size.zero;
@@ -136,7 +137,10 @@ class DependencyGraphViewState extends State<DependencyGraphView> with SingleTic
   /// Fits the visible nodes into the canvas.
   void fitView({bool animate = true}) {
     if (_size == Size.zero || !mounted) return;
-    var x0 = double.infinity, y0 = double.infinity, x1 = -double.infinity, y1 = -double.infinity;
+    var x0 = double.infinity,
+        y0 = double.infinity,
+        x1 = -double.infinity,
+        y1 = -double.infinity;
     for (final i in widget.visible) {
       final n = g.nodes[i];
       x0 = math.min(x0, n.x);
@@ -145,7 +149,12 @@ class DependencyGraphViewState extends State<DependencyGraphView> with SingleTic
       y1 = math.max(y1, n.y);
     }
     const margin = 120.0;
-    final k = math.min(_size.width / (x1 - x0 + margin), _size.height / (y1 - y0 + margin)).clamp(0.15, 3.0);
+    final k = math
+        .min(
+          _size.width / (x1 - x0 + margin),
+          _size.height / (y1 - y0 + margin),
+        )
+        .clamp(0.15, 3.0);
     final tx = _size.width / 2 - (x0 + x1) / 2 * k;
     final ty = _size.height / 2 - (y0 + y1) / 2 * k;
     if (!animate) {
@@ -199,14 +208,18 @@ class DependencyGraphViewState extends State<DependencyGraphView> with SingleTic
           _size = size;
           if (!_fitted) {
             _fitted = true;
-            WidgetsBinding.instance.addPostFrameCallback((_) => fitView(animate: false));
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => fitView(animate: false),
+            );
           }
         }
         return ClipRect(
           child: MouseRegion(
             cursor: _dragStart != null
                 ? SystemMouseCursors.grabbing
-                : (_hover != null ? SystemMouseCursors.click : SystemMouseCursors.grab),
+                : (_hover != null
+                      ? SystemMouseCursors.click
+                      : SystemMouseCursors.grab),
             onHover: (e) {
               final hit = _hitTest(e.localPosition);
               if (hit != _hover) setState(() => _hover = hit);
@@ -215,7 +228,10 @@ class DependencyGraphViewState extends State<DependencyGraphView> with SingleTic
             child: Listener(
               onPointerSignal: (e) {
                 if (e is PointerScrollEvent) {
-                  _zoomAt(e.localPosition, _k * math.exp(-e.scrollDelta.dy * 0.0016));
+                  _zoomAt(
+                    e.localPosition,
+                    _k * math.exp(-e.scrollDelta.dy * 0.0016),
+                  );
                 }
               },
               // Trackpad: two-finger scroll = pan, pinch = zoom.
@@ -236,7 +252,11 @@ class DependencyGraphViewState extends State<DependencyGraphView> with SingleTic
               },
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                supportedDevices: const {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus},
+                supportedDevices: const {
+                  PointerDeviceKind.mouse,
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.stylus,
+                },
                 onPanStart: (d) {
                   _anim.stop();
                   _dragStart = d.localPosition;
@@ -309,13 +329,17 @@ class _GraphPainter extends CustomPainter {
   static final _labelCache = <String, TextPainter>{};
 
   static const _downColor = DeckColors.accent;
-  static const _upColor = Color(0xFF5CC8FF);
+  static const _upColor = DeckColors.text;
 
   @override
   void paint(Canvas canvas, Size size) {
     final g = graph;
-    final down = sel != null ? g.closure(sel!, out: true, visible: visible) : null;
-    final up = sel != null ? g.closure(sel!, out: false, visible: visible) : null;
+    final down = sel != null
+        ? g.closure(sel!, out: true, visible: visible)
+        : null;
+    final up = sel != null
+        ? g.closure(sel!, out: false, visible: visible)
+        : null;
     final related = sel != null ? {...down!, ...up!} : null;
 
     canvas.save();
@@ -352,8 +376,20 @@ class _GraphPainter extends CustomPainter {
       ..strokeWidth = w / math.sqrt(k)
       ..color = c;
     canvas.drawPath(faded, stroke(DeckColors.muted.withValues(alpha: 0.05), 1));
-    canvas.drawPath(plain, stroke(DeckColors.muted.withValues(alpha: hover != null ? 0.12 : 0.28), 1));
-    canvas.drawPath(cross, stroke(DeckColors.accent.withValues(alpha: hover != null ? 0.15 : 0.4), 1.2));
+    canvas.drawPath(
+      plain,
+      stroke(
+        DeckColors.muted.withValues(alpha: hover != null ? 0.12 : 0.28),
+        1,
+      ),
+    );
+    canvas.drawPath(
+      cross,
+      stroke(
+        DeckColors.accent.withValues(alpha: hover != null ? 0.15 : 0.4),
+        1.2,
+      ),
+    );
 
     for (final (e, color) in emphasized) {
       final path = Path();
@@ -403,7 +439,10 @@ class _GraphPainter extends CustomPainter {
       final filled = isRoot || g.isDirect(i);
       canvas.drawPath(
         shape,
-        Paint()..color = (filled ? color : DeckColors.background).withValues(alpha: filled ? o * 0.9 : o),
+        Paint()
+          ..color = (filled ? color : DeckColors.background).withValues(
+            alpha: filled ? o * 0.9 : o,
+          ),
       );
       canvas.drawPath(
         shape,
@@ -413,13 +452,24 @@ class _GraphPainter extends CustomPainter {
           ..color = color.withValues(alpha: o),
       );
 
-      final showLabel = isRoot || isSel || hovered || (o == 1.0 && (g.isDirect(i) ? k >= 0.9 : k >= 1.7)) ||
+      final showLabel =
+          isRoot ||
+          isSel ||
+          hovered ||
+          (o == 1.0 && (g.isDirect(i) ? k >= 0.9 : k >= 1.7)) ||
           (sel != null && related!.contains(i) && k >= 0.9);
       if (showLabel && o > 0.5) {
         final emphasized = isRoot || isSel || hovered;
         final fs = isRoot ? 16.0 : (emphasized ? 14.0 : 10.5);
-        final text = n.name.length > 32 ? '${n.name.substring(0, 30)}…' : n.name;
-        final painter = _label(text, fs, emphasized ? DeckColors.onSurface : DeckColors.muted, emphasized);
+        final text = n.name.length > 32
+            ? '${n.name.substring(0, 30)}…'
+            : n.name;
+        final painter = _label(
+          text,
+          fs,
+          emphasized ? DeckColors.onSurface : DeckColors.muted,
+          emphasized,
+        );
         final offset = Offset(-painter.width / 2, base + 5);
         if (emphasized) {
           canvas.drawRRect(
@@ -467,7 +517,12 @@ class _GraphPainter extends CustomPainter {
     final painter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(fontSize: fs, color: color, height: 1.0, fontWeight: bold ? FontWeight.w600 : FontWeight.w400),
+        style: TextStyle(
+          fontSize: fs,
+          color: color,
+          height: 1.0,
+          fontWeight: bold ? FontWeight.w600 : FontWeight.w400,
+        ),
       ),
       textDirection: ui.TextDirection.ltr,
     )..layout();

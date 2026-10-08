@@ -12,8 +12,7 @@ class AndroidIosSlide extends FlutterDeckSlideWidget {
           route: '/android-ios',
           title: '29. Android / iOS',
           steps: 2,
-          speakerNotes:
-              '- No deep dive. Both ecosystems have source and binary forms and build-time execution mechanisms.',
+          speakerNotes: '- No deep dive. Both ecosystems have source and binary forms and build-time execution mechanisms.',
         ),
       );
 
@@ -27,17 +26,31 @@ class AndroidIosSlide extends FlutterDeckSlideWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            BigText('Android', fontSize: 44, accent: true, align: TextAlign.left),
+            BigText(
+              'Android',
+              fontSize: 44,
+              accent: true,
+              align: TextAlign.left,
+            ),
             SizedBox(height: 32),
             ChainColumn(
-              items: ['Flutter plugin', 'Gradle dependency', 'JAR / AAR from Maven', 'precompiled artifact'],
+              items: [
+                'Flutter plugin',
+                'Gradle dependency',
+                'JAR / AAR from Maven',
+                'precompiled artifact',
+              ],
               fontSize: 26,
               nodeWidth: 560,
             ),
             SizedBox(height: 32),
             Text(
               'The role matters: implementation dependency, Gradle plugin, KSP / kapt, custom lint',
-              style: TextStyle(fontSize: 26, color: DeckColors.muted, height: 1.4),
+              style: TextStyle(
+                fontSize: 26,
+                color: DeckColors.muted,
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -52,11 +65,20 @@ class AndroidIosSlide extends FlutterDeckSlideWidget {
             children: const [
               BigText('iOS', fontSize: 44, accent: true, align: TextAlign.left),
               SizedBox(height: 32),
-              Text('CocoaPods: source_files → compiled by you / vendored_frameworks → precompiled', style: lineStyle),
+              Text(
+                'CocoaPods: source_files → compiled by you / vendored_frameworks → precompiled',
+                style: lineStyle,
+              ),
               SizedBox(height: 24),
-              Text('CocoaPods build-time hooks: prepare_command, script_phase', style: lineStyle),
+              Text(
+                'CocoaPods build-time hooks: prepare_command, script_phase',
+                style: lineStyle,
+              ),
               SizedBox(height: 24),
-              Text('SwiftPM: .target → source / .binaryTarget → precompiled / .plugin → tooling', style: lineStyle),
+              Text(
+                'SwiftPM: .target → source / .binaryTarget → precompiled / .plugin → tooling',
+                style: lineStyle,
+              ),
             ],
           ),
         ),

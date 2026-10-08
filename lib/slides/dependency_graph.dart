@@ -7,6 +7,7 @@ import 'package:flutter_deck/flutter_deck.dart';
 import '../dependency_graph/graph_model.dart';
 import '../dependency_graph/graph_view.dart';
 import '../theme.dart';
+import '../widgets/design.dart';
 
 /// Interactive dependency graph of a real app.
 ///
@@ -20,18 +21,25 @@ class DependencyGraphSlide extends FlutterDeckSlideWidget {
           route: '/dependency-graph',
           title: '04. Dependency graph',
           steps: 2,
-          header: FlutterDeckHeaderConfiguration(title: 'Most of this code, I never chose directly.'),
           speakerNotes:
               '- This is the real dependency graph of my app, not an illustration.\n'
-              '- Step 1 is what I wrote in pubspec.yaml; step 2 is everything my build pulls in.\n'
-              '- Click a package: amber = what it depends on, blue = who depends on it.\n'
-              '- Drag to pan, scroll / pinch to zoom, double-click to reset.',
+              '- Step 1 is what I wrote in pubspec.yaml; step 2 is everything my build pulls in. '
+              'The number counts up as the transitive dependencies appear.\n'
+              '- Click a package: gold = what it depends on, white = who depends on it.\n'
+              '- Drag to pan, scroll / pinch to zoom, double-click to reset.\n'
+              '- Dependencies are not bad: they are why we can build this efficiently and ship this fast.',
         ),
       );
 
   @override
   Widget build(BuildContext context) {
-    return FlutterDeckSlide.blank(builder: (context) => const _GraphBody());
+    return FlutterDeckSlide.blank(
+      builder: (context) => const DesignSlide(
+        padded: false,
+        pageNumber: '04',
+        child: _GraphBody(),
+      ),
+    );
   }
 }
 
@@ -49,7 +57,11 @@ class _GraphBodyState extends State<_GraphBody> {
       ? Future.value(_cache)
       : rootBundle
             .loadString('assets/dependency_graph.json')
-            .then((s) => _cache = GraphData.fromJson(jsonDecode(s) as Map<String, dynamic>));
+            .then(
+              (s) => _cache = GraphData.fromJson(
+                jsonDecode(s) as Map<String, dynamic>,
+              ),
+            );
 
   final _viewKey = GlobalKey<DependencyGraphViewState>();
   int? _sel;
@@ -60,7 +72,12 @@ class _GraphBodyState extends State<_GraphBody> {
       future: _graph,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text('Failed to load graph: ${snapshot.error}', style: const TextStyle(fontSize: 28)));
+          return Center(
+            child: Text(
+              'Failed to load graph: ${snapshot.error}',
+              style: fig(28),
+            ),
+          );
         }
         final graph = snapshot.data;
         if (graph == null) return const SizedBox.shrink();
@@ -70,102 +87,65 @@ class _GraphBodyState extends State<_GraphBody> {
           builder: (context, step) {
             final showAll = step >= 2;
             final visible = showAll ? all : graph.directSet;
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(48, 0, 48, 8),
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: DeckColors.surfaceAlt, width: 2),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: DependencyGraphView(
-                          key: _viewKey,
-                          graph: graph,
-                          visible: visible,
-                          onSelectionChanged: (i) => setState(() => _sel = i),
+            final count =
+                (showAll ? graph.nodes.length : graph.directSet.length) - 1;
+            return Stack(
+              children: [
+                Positioned(
+                  left: 100,
+                  right: 100,
+                  top: 200,
+                  bottom: 110,
+                  child: DependencyGraphView(
+                    key: _viewKey,
+                    graph: graph,
+                    visible: visible,
+                    onSelectionChanged: (i) => setState(() => _sel = i),
+                  ),
+                ),
+                Positioned(
+                  left: 120,
+                  top: 84,
+                  child: IgnorePointer(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        CountUp(
+                          count,
+                          style: fig(98, color: DeckColors.accent, height: 1),
                         ),
-                      ),
+                        const SizedBox(width: 28),
+                        Text(
+                          showAll
+                              ? 'dependencies, direct and transitive'
+                              : 'direct dependencies',
+                          style: fig(32, color: DeckColors.faint),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(left: 24, top: 20, child: _Counts(graph: graph, showAll: showAll)),
-                  Positioned(left: 24, bottom: 20, child: _Legend(graph: graph)),
-                  if (_sel != null)
-                    Positioned(right: 24, top: 20, child: _SelectionInfo(graph: graph, index: _sel!, visible: visible)),
+                ),
+                Positioned(
+                  left: 120,
+                  bottom: 100,
+                  child: IgnorePointer(child: _Legend(graph: graph)),
+                ),
+                if (_sel != null)
                   Positioned(
-                    right: 24,
-                    bottom: 20,
-                    child: AnimatedOpacity(
-                      opacity: showAll ? 1 : 0,
-                      duration: const Duration(milliseconds: 300),
-                      child: const _Panel(
-                        child: Text(
-                          'Direct dependencies are only the top of the graph.',
-                          style: TextStyle(fontSize: 26, fontStyle: FontStyle.italic, color: DeckColors.accent),
-                        ),
-                      ),
+                    right: 120,
+                    top: 96,
+                    child: _SelectionInfo(
+                      graph: graph,
+                      index: _sel!,
+                      visible: visible,
                     ),
                   ),
-                ],
-              ),
+              ],
             );
           },
         );
       },
-    );
-  }
-}
-
-class _Panel extends StatelessWidget {
-  const _Panel({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        decoration: BoxDecoration(
-          color: DeckColors.background.withValues(alpha: 0.88),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: DeckColors.surfaceAlt, width: 1.5),
-        ),
-        child: child,
-      ),
-    );
-  }
-}
-
-class _Counts extends StatelessWidget {
-  const _Counts({required this.graph, required this.showAll});
-
-  final GraphData graph;
-  final bool showAll;
-
-  @override
-  Widget build(BuildContext context) {
-    final count = showAll ? graph.nodes.length - 1 : graph.directSet.length - 1;
-    return _Panel(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-        children: [
-          Text(
-            '$count',
-            style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w800, color: DeckColors.accent, height: 1),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            showAll ? 'dependencies, direct and transitive' : 'direct dependencies',
-            style: const TextStyle(fontSize: 26, color: DeckColors.onSurface),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -177,44 +157,55 @@ class _Legend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (final eco in Ecosystem.values)
-            if (graph.countOf(eco) > 0)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: ecoColor(eco)),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final eco in Ecosystem.values)
+          if (graph.countOf(eco) > 0)
+            Padding(
+              padding: const EdgeInsets.only(right: 40),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 14,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ecoColor(eco),
                     ),
-                    const SizedBox(width: 10),
-                    Text(
-                      '${ecoLabel(eco)}  ${graph.countOf(eco)}',
-                      style: const TextStyle(fontSize: 22, color: DeckColors.onSurface),
+                  ),
+                  const SizedBox(width: 12),
+                  Text.rich(
+                    TextSpan(
+                      style: fig(26, color: DeckColors.faint),
+                      children: [
+                        TextSpan(text: '${ecoLabel(eco)} '),
+                        TextSpan(
+                          text: '${graph.countOf(eco)}',
+                          style: fig(26, color: DeckColors.accent),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-          const SizedBox(height: 6),
-          const Text(
-            'Filled = direct   ·   Outline = transitive',
-            style: TextStyle(fontSize: 18, color: DeckColors.muted),
-          ),
-        ],
-      ),
+            ),
+        Text(
+          'Filled = direct   ·   Outline = transitive',
+          style: fig(24, color: DeckColors.faintest),
+        ),
+      ],
     );
   }
 }
 
 class _SelectionInfo extends StatelessWidget {
-  const _SelectionInfo({required this.graph, required this.index, required this.visible});
+  const _SelectionInfo({
+    required this.graph,
+    required this.index,
+    required this.visible,
+  });
 
   final GraphData graph;
   final int index;
@@ -225,19 +216,29 @@ class _SelectionInfo extends StatelessWidget {
     final node = graph.nodes[index];
     final down = graph.closure(index, out: true, visible: visible).length - 1;
     final up = graph.closure(index, out: false, visible: visible).length - 1;
-    return _Panel(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            node.version.isEmpty ? node.name : '${node.name}  ${node.version}',
-            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: DeckColors.onSurface),
-          ),
-          const SizedBox(height: 8),
-          Text('depends on $down', style: const TextStyle(fontSize: 22, color: DeckColors.accent)),
-          Text('used by $up', style: const TextStyle(fontSize: 22, color: Color(0xFF5CC8FF))),
-        ],
+    return IgnorePointer(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+        decoration: BoxDecoration(
+          color: DeckColors.background.withValues(alpha: 0.88),
+          border: Border.all(color: DeckColors.rule),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              node.version.isEmpty
+                  ? node.name
+                  : '${node.name}  ${node.version}',
+              style: mono(24, color: DeckColors.text),
+            ),
+            const SizedBox(height: 10),
+            Text('depends on $down', style: fig(24, color: DeckColors.accent)),
+            Text('used by $up', style: fig(24, color: DeckColors.sub)),
+          ],
+        ),
       ),
     );
   }

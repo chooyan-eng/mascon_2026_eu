@@ -47,7 +47,11 @@ class Node extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: fontSize, height: 1.25, color: DeckColors.onSurface),
+        style: TextStyle(
+          fontSize: fontSize,
+          height: 1.25,
+          color: DeckColors.onSurface,
+        ),
       ),
     );
   }
@@ -94,13 +98,19 @@ class ChainColumn extends StatelessWidget {
         children: [
           if (i > 0) ...[
             SizedBox(height: gap),
-            Icon(Icons.arrow_downward_rounded, size: fontSize, color: DeckColors.muted),
+            Icon(
+              Icons.arrow_downward_rounded,
+              size: fontSize,
+              color: DeckColors.muted,
+            ),
             SizedBox(height: gap),
           ],
           node,
         ],
       );
-      children.add(stepped ? Reveal(step: firstStep + i, child: withArrow) : withArrow);
+      children.add(
+        stepped ? Reveal(step: firstStep + i, child: withArrow) : withArrow,
+      );
     }
     return Column(mainAxisSize: MainAxisSize.min, children: children);
   }
@@ -132,7 +142,13 @@ class ChainRow extends StatelessWidget {
       runSpacing: 16,
       children: [
         for (var i = 0; i < items.length; i++) ...[
-          if (i > 0) separator ?? Icon(Icons.arrow_forward_rounded, size: fontSize, color: DeckColors.muted),
+          if (i > 0)
+            separator ??
+                Icon(
+                  Icons.arrow_forward_rounded,
+                  size: fontSize,
+                  color: DeckColors.muted,
+                ),
           Node(
             items[i],
             fontSize: fontSize,
@@ -216,7 +232,13 @@ class Tag extends StatelessWidget {
 
 /// A card with a title and a list of lines.
 class InfoCard extends StatelessWidget {
-  const InfoCard({required this.title, this.lines = const [], this.accent = false, this.fontSize = 26, super.key});
+  const InfoCard({
+    required this.title,
+    this.lines = const [],
+    this.accent = false,
+    this.fontSize = 26,
+    super.key,
+  });
 
   final String title;
   final List<String> lines;
@@ -230,7 +252,10 @@ class InfoCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: DeckColors.surface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: accent ? DeckColors.accent : DeckColors.surfaceAlt, width: 2),
+        border: Border.all(
+          color: accent ? DeckColors.accent : DeckColors.surfaceAlt,
+          width: 2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,7 +273,14 @@ class InfoCard extends StatelessWidget {
           for (final line in lines)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Text(line, style: TextStyle(fontSize: fontSize, height: 1.3, color: DeckColors.onSurface)),
+              child: Text(
+                line,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  height: 1.3,
+                  color: DeckColors.onSurface,
+                ),
+              ),
             ),
         ],
       ),
@@ -285,22 +317,23 @@ class DeckTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget cell(String text, {bool header = false, bool accent = false}) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: header ? fontSize - 2 : fontSize,
-          fontWeight: header ? FontWeight.w700 : FontWeight.w400,
-          color: header
-              ? DeckColors.muted
-              : accent
-              ? DeckColors.accent
-              : DeckColors.onSurface,
-          height: 1.3,
-        ),
-      ),
-    );
+    Widget cell(String text, {bool header = false, bool accent = false}) =>
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: header ? fontSize - 2 : fontSize,
+              fontWeight: header ? FontWeight.w700 : FontWeight.w400,
+              color: header
+                  ? DeckColors.muted
+                  : accent
+                  ? DeckColors.accent
+                  : DeckColors.onSurface,
+              height: 1.3,
+            ),
+          ),
+        );
 
     return Table(
       columnWidths: columnWidths,
@@ -316,7 +349,10 @@ class DeckTable extends StatelessWidget {
             children: [
               for (final (j, c) in rows[i].indexed)
                 if (rowSteps != null)
-                  Reveal(step: rowSteps![i], child: cell(c, accent: j == 0 && accentRows.contains(i)))
+                  Reveal(
+                    step: rowSteps![i],
+                    child: cell(c, accent: j == 0 && accentRows.contains(i)),
+                  )
                 else if (stepped)
                   Reveal(step: firstStep + i, child: cell(c))
                 else
@@ -352,7 +388,12 @@ class FooterLine extends StatelessWidget {
 
 /// Bullet list built from plain text with the deck's bullet theme.
 class Bullets extends StatelessWidget {
-  const Bullets(this.items, {this.useSteps = false, this.stepOffset = 0, super.key});
+  const Bullets(
+    this.items, {
+    this.useSteps = false,
+    this.stepOffset = 0,
+    super.key,
+  });
 
   final List<String> items;
   final bool useSteps;
@@ -374,7 +415,12 @@ class Bullets extends StatelessWidget {
 
 /// Standard content wrapper for blank slides: padding + optional bottom line.
 class SlideBody extends StatelessWidget {
-  const SlideBody({required this.child, this.footerLine, this.footerAccent = false, super.key});
+  const SlideBody({
+    required this.child,
+    this.footerLine,
+    this.footerAccent = false,
+    super.key,
+  });
 
   final Widget child;
   final String? footerLine;

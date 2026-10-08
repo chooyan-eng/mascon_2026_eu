@@ -33,7 +33,12 @@ class TwoImpactPathsSlide extends FlutterDeckSlideWidget {
       rightBuilder: (context) => const _Path(
         step: 2,
         title: 'End-user compromise',
-        items: ['Malicious runtime code', 'Compiled / bundled into the app', 'APK / IPA', 'End-user device'],
+        items: [
+          'Malicious runtime code',
+          'Compiled / bundled into the app',
+          'APK / IPA',
+          'End-user device',
+        ],
       ),
     );
   }
@@ -57,7 +62,12 @@ class _Path extends StatelessWidget {
           children: [
             BigText(title, fontSize: 44, accent: true),
             const SizedBox(height: 40),
-            ChainColumn(items: items, fontSize: 28, nodeWidth: 640, dangerIndexes: {0, items.length - 1}),
+            ChainColumn(
+              items: items,
+              fontSize: 28,
+              nodeWidth: 640,
+              dangerIndexes: {0, items.length - 1},
+            ),
           ],
         ),
       ),

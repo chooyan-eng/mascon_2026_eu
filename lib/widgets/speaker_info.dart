@@ -14,16 +14,27 @@ class SpeakerInfoBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final info = context.flutterDeck.speakerInfo;
     if (info == null) return const SizedBox.shrink();
-    if (showSpeakerImage) return FlutterDeckSpeakerInfoWidget(speakerInfo: info);
+    if (showSpeakerImage) {
+      return FlutterDeckSpeakerInfoWidget(speakerInfo: info);
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(info.name, style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w600)),
+        Text(
+          info.name,
+          style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 6),
-        Text(info.description, style: const TextStyle(fontSize: 26, color: DeckColors.muted)),
+        Text(
+          info.description,
+          style: const TextStyle(fontSize: 26, color: DeckColors.muted),
+        ),
         const SizedBox(height: 6),
-        Text(info.socialHandle, style: const TextStyle(fontSize: 26, color: DeckColors.accent)),
+        Text(
+          info.socialHandle,
+          style: const TextStyle(fontSize: 26, color: DeckColors.accent),
+        ),
       ],
     );
   }

@@ -30,8 +30,14 @@ class BaselineSlide extends FlutterDeckSlideWidget {
               fontSize: 30,
               columnWidths: {0: FlexColumnWidth(3), 1: FlexColumnWidth(1.2)},
               rows: [
-                ['Analyzer plugin suddenly downloads a native binary', 'Unusual'],
-                ['Native build hook downloads a native library', 'Plausible legitimate use'],
+                [
+                  'Analyzer plugin suddenly downloads a native binary',
+                  'Unusual',
+                ],
+                [
+                  'Native build hook downloads a native library',
+                  'Plausible legitimate use',
+                ],
                 ['Gradle native plugin starts a compiler process', 'Ordinary'],
                 ['Unrelated formatter reads ~/.ssh', 'Unusual'],
               ],

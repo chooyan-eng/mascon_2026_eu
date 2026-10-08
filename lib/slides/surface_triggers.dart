@@ -9,7 +9,9 @@ class SurfaceTriggersSlide extends FlutterDeckSlideWidget {
         configuration: const FlutterDeckSlideConfiguration(
           route: '/surface-triggers',
           title: '12. Surface triggers',
-          header: FlutterDeckHeaderConfiguration(title: 'Each surface has its own trigger and its own opt-in'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'Each surface has its own trigger and its own opt-in',
+          ),
           speakerNotes:
               '- Overview only. What matters: when does it run, and did I opt in?\n'
               '- [NEEDS VERIFICATION] trigger / opt-in descriptions for each mechanism.',

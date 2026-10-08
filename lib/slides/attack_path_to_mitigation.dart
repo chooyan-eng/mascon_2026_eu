@@ -10,7 +10,9 @@ class AttackPathToMitigationSlide extends FlutterDeckSlideWidget {
           route: '/attack-path-to-mitigation',
           title: '14. Attack path → mitigation',
           steps: 3,
-          header: FlutterDeckHeaderConfiguration(title: 'Which attack path does this mitigation actually stop?'),
+          header: FlutterDeckHeaderConfiguration(
+            title: 'Which attack path does this mitigation actually stop?',
+          ),
           speakerNotes:
               '- Not a checklist. Each control maps to an attack path and has something it does not stop.\n'
               '- Overview level only; two more rows appear after the deep dive (slide 31).\n'
@@ -28,7 +30,11 @@ class AttackPathToMitigationSlide extends FlutterDeckSlideWidget {
             stepped: true,
             fontSize: 24,
             columns: ['Attack path', 'Mitigation', 'Does not stop'],
-            columnWidths: {0: FlexColumnWidth(1.1), 1: FlexColumnWidth(1.6), 2: FlexColumnWidth(1.6)},
+            columnWidths: {
+              0: FlexColumnWidth(1.1),
+              1: FlexColumnWidth(1.6),
+              2: FlexColumnWidth(1.6),
+            },
             rows: [
               [
                 'Unexpected package update',
