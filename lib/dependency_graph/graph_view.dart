@@ -328,8 +328,8 @@ class _GraphPainter extends CustomPainter {
 
   static final _labelCache = <String, TextPainter>{};
 
-  static const _downColor = DeckColors.accent;
-  static const _upColor = DeckColors.text;
+  static Color get _downColor => DeckColors.accent;
+  static Color get _upColor => DeckColors.text;
 
   @override
   void paint(Canvas canvas, Size size) {

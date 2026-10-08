@@ -62,7 +62,7 @@ class ImpactExamplesSlide extends FlutterDeckSlideWidget {
                                   child: Container(
                                     width: 10,
                                     height: 10,
-                                    decoration: const BoxDecoration(shape: BoxShape.circle, color: DeckColors.accent),
+                                    decoration: BoxDecoration(shape: BoxShape.circle, color: DeckColors.accent),
                                   ),
                                 ),
                                 const SizedBox(width: 24),
@@ -74,7 +74,7 @@ class ImpactExamplesSlide extends FlutterDeckSlideWidget {
                     ),
                   ),
                 ),
-                const VerticalDivider(color: DeckColors.line, width: 96, thickness: 1),
+                VerticalDivider(color: DeckColors.line, width: 96, thickness: 1),
                 Expanded(
                   child: Enter(
                     step: 2,

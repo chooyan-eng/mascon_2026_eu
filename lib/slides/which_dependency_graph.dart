@@ -60,8 +60,8 @@ class WhichDependencyGraphSlide extends FlutterDeckSlideWidget {
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 24),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: Icon(
                               Icons.arrow_forward_rounded,
                               color: DeckColors.muted,

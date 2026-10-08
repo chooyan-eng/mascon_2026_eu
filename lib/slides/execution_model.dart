@@ -45,7 +45,7 @@ class ExecutionModelSlide extends FlutterDeckSlideWidget {
             children: [
               for (final (i, row) in _rows.indexed)
                 Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(color: DeckColors.rule)),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 14),

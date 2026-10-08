@@ -26,6 +26,7 @@ type: custom, steps: 1, footer: none
 - title 2 行: "Security Risks of Packages\nin Mobile App Development"（91px Light）
 - 金のヘアラインが左から伸びる（auto）
 - 名前行 (auto): "Tsuyoshi Chujo" / "Flutter developer · package author" / `@tsuyoshi_chujo`（等幅・金）
+- 右上: ライト/ダークモード切替トグル（月/太陽アイコン 22px + ピル型トグル 56×28、薄色・控えめ。クリックでデッキ全体の配色がダーク ⇔ ライトに切替。ライトの配色は docs/design_handoff_mascon_deck_light/README.md 準拠）
 - notes: Hello everyone. My name is Tsuyoshi, and I came here from Japan.
 
 ## 02. About me (/about-me)

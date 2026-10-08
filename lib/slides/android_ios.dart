@@ -25,7 +25,7 @@ class AndroidIosSlide extends FlutterDeckSlideWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             BigText(
               'Android',
               fontSize: 44,

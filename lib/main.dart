@@ -17,10 +17,19 @@ class MasconDeck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Rebuild the whole app when the title-slide toggle flips light / dark:
+    // DeckColors resolves against deckLightMode at build time.
+    return ValueListenableBuilder<bool>(
+      valueListenable: deckLightMode,
+      builder: (context, _, _) => _buildApp(),
+    );
+  }
+
+  Widget _buildApp() {
     final theme = buildDeckTheme();
     return FlutterDeckApp(
       configuration: FlutterDeckConfiguration(
-        background: const FlutterDeckBackgroundConfiguration(
+        background: FlutterDeckBackgroundConfiguration(
           light: FlutterDeckBackground.solid(DeckColors.background),
           dark: FlutterDeckBackground.solid(DeckColors.background),
         ),
@@ -32,11 +41,11 @@ class MasconDeck extends StatelessWidget {
         // Slides draw their own footer (handle + 2-digit page number).
         footer: const FlutterDeckFooterConfiguration(showFooter: false),
         header: const FlutterDeckHeaderConfiguration(showHeader: false),
-        marker: const FlutterDeckMarkerConfiguration(
+        marker: FlutterDeckMarkerConfiguration(
           color: DeckColors.accent,
           strokeWidth: 8,
         ),
-        progressIndicator: const FlutterDeckProgressIndicator.solid(
+        progressIndicator: FlutterDeckProgressIndicator.solid(
           color: DeckColors.accent,
           backgroundColor: DeckColors.rule,
         ),

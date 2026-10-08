@@ -92,7 +92,7 @@ class _RatioBar extends StatelessWidget {
             flex: dart,
             child: Container(
               padding: const EdgeInsets.only(top: 20),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: DeckColors.sub, width: 3),
                 ),
@@ -105,7 +105,7 @@ class _RatioBar extends StatelessWidget {
           Container(
             width: 110,
             padding: const EdgeInsets.only(top: 20),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(color: DeckColors.accent, width: 3),
               ),
@@ -118,7 +118,7 @@ class _RatioBar extends StatelessWidget {
             flex: android,
             child: Container(
               padding: const EdgeInsets.only(top: 20),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: DeckColors.gray, width: 3),
                 ),

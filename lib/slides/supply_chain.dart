@@ -108,7 +108,7 @@ class SupplyChainSlide extends FlutterDeckSlideWidget {
                       ),
                     ),
                   ),
-                  const Positioned(
+                  Positioned(
                     left: 160,
                     top: 492,
                     child: OutlineBox(

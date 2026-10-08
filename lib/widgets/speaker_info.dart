@@ -28,12 +28,12 @@ class SpeakerInfoBlock extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           info.description,
-          style: const TextStyle(fontSize: 26, color: DeckColors.muted),
+          style: TextStyle(fontSize: 26, color: DeckColors.muted),
         ),
         const SizedBox(height: 6),
         Text(
           info.socialHandle,
-          style: const TextStyle(fontSize: 26, color: DeckColors.accent),
+          style: TextStyle(fontSize: 26, color: DeckColors.accent),
         ),
       ],
     );

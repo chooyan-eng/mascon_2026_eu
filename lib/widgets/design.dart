@@ -106,7 +106,7 @@ class GrowLine extends StatelessWidget {
     this.delayMs = 0,
     this.durationMs = 1200,
     this.thickness = 1,
-    this.color = DeckColors.accent,
+    this.color,
     this.alignment = Alignment.centerLeft,
     super.key,
   });
@@ -115,7 +115,9 @@ class GrowLine extends StatelessWidget {
   final int delayMs;
   final int durationMs;
   final double thickness;
-  final Color color;
+
+  /// Defaults to [DeckColors.accent].
+  final Color? color;
   final Alignment alignment;
 
   @override
@@ -129,7 +131,7 @@ class GrowLine extends StatelessWidget {
         transform: Matrix4.diagonal3Values(shown ? 1 : 0.001, 1, 1),
         transformAlignment: alignment,
         height: thickness,
-        color: color,
+        color: color ?? DeckColors.accent,
       ),
     );
   }
@@ -283,9 +285,9 @@ class OutlineBox extends StatelessWidget {
     this.width,
     this.height,
     this.fontSize = 44,
-    this.borderColor = DeckColors.line,
+    this.borderColor,
     this.borderWidth = 1,
-    this.textColor = DeckColors.faint,
+    this.textColor,
     this.useMono = false,
     this.child,
     super.key,
@@ -295,14 +297,19 @@ class OutlineBox extends StatelessWidget {
   final double? width;
   final double? height;
   final double fontSize;
-  final Color borderColor;
+
+  /// Defaults to [DeckColors.line].
+  final Color? borderColor;
   final double borderWidth;
-  final Color textColor;
+
+  /// Defaults to [DeckColors.faint].
+  final Color? textColor;
   final bool useMono;
   final Widget? child;
 
   @override
   Widget build(BuildContext context) {
+    final resolvedText = textColor ?? DeckColors.faint;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 700),
       curve: Curves.easeOut,
@@ -310,7 +317,10 @@ class OutlineBox extends StatelessWidget {
       height: height,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        border: Border.all(color: borderColor, width: borderWidth),
+        border: Border.all(
+          color: borderColor ?? DeckColors.line,
+          width: borderWidth,
+        ),
         borderRadius: BorderRadius.circular(4),
       ),
       child:
@@ -319,8 +329,8 @@ class OutlineBox extends StatelessWidget {
             duration: const Duration(milliseconds: 700),
             curve: Curves.easeOut,
             style: useMono
-                ? mono(fontSize, color: textColor)
-                : fig(fontSize, color: textColor),
+                ? mono(fontSize, color: resolvedText)
+                : fig(fontSize, color: resolvedText),
             textAlign: TextAlign.center,
             child: Text(label, textAlign: TextAlign.center),
           ),
@@ -377,7 +387,7 @@ class CodeBlock extends StatelessWidget {
       spans.add(
         TextSpan(
           text: rest.substring(open + 1, end),
-          style: const TextStyle(color: DeckColors.accent),
+          style: const TextStyle(color: DeckColors.codeAccent),
         ),
       );
       rest = close < 0 ? '' : rest.substring(close + 1);
@@ -401,7 +411,7 @@ class CodeBlock extends StatelessWidget {
           for (final line in lines)
             Text.rich(
               TextSpan(children: _spans(line.isEmpty ? ' ' : line)),
-              style: mono(26, color: DeckColors.text, height: 1.6),
+              style: mono(26, color: DeckColors.codeText, height: 1.6),
             ),
         ],
       ),
@@ -418,7 +428,7 @@ class PathDraw extends StatelessWidget {
     this.step = 1,
     this.delayMs = 0,
     this.durationMs = 700,
-    this.color = DeckColors.accent,
+    this.color,
     this.strokeWidth = 3,
     super.key,
   });
@@ -427,7 +437,9 @@ class PathDraw extends StatelessWidget {
   final int step;
   final int delayMs;
   final int durationMs;
-  final Color color;
+
+  /// Defaults to [DeckColors.accent].
+  final Color? color;
   final double strokeWidth;
 
   @override
@@ -443,7 +455,7 @@ class PathDraw extends StatelessWidget {
           painter: _PartialPathPainter(
             path: path,
             progress: t,
-            color: color,
+            color: color ?? DeckColors.accent,
             strokeWidth: strokeWidth,
           ),
         ),
@@ -486,13 +498,15 @@ class _PartialPathPainter extends CustomPainter {
 class StrokePaths extends StatelessWidget {
   const StrokePaths({
     required this.path,
-    this.color = DeckColors.line,
+    this.color,
     this.strokeWidth = 1.5,
     super.key,
   });
 
   final Path path;
-  final Color color;
+
+  /// Defaults to [DeckColors.line].
+  final Color? color;
   final double strokeWidth;
 
   @override
@@ -501,8 +515,61 @@ class StrokePaths extends StatelessWidget {
       painter: _PartialPathPainter(
         path: path,
         progress: 1,
-        color: color,
+        color: color ?? DeckColors.line,
         strokeWidth: strokeWidth,
+      ),
+    );
+  }
+}
+
+/// Subtle light / dark mode toggle (title slide, top right): a small mode
+/// icon plus an outlined pill whose knob slides on tap.
+class ThemeToggle extends StatelessWidget {
+  const ThemeToggle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: deckLightMode,
+      builder: (context, light, _) => MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => deckLightMode.value = !light,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                light ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+                size: 22,
+                color: DeckColors.faintest,
+              ),
+              const SizedBox(width: 14),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                width: 56,
+                height: 28,
+                padding: const EdgeInsets.all(3),
+                alignment: light
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  border: Border.all(color: DeckColors.line),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: DeckColors.faintest,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

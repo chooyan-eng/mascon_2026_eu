@@ -48,7 +48,7 @@ class AttackSurfacesSlide extends FlutterDeckSlideWidget {
                         width: 640,
                         child: Text(
                           name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 40,
                             color: DeckColors.onSurface,
                           ),

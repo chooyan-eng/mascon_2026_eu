@@ -98,7 +98,7 @@ class ExecutionSurfacesSlide extends FlutterDeckSlideWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: DeckColors.line),
                       ),
@@ -130,7 +130,7 @@ class ExecutionSurfacesSlide extends FlutterDeckSlideWidget {
                     Enter(
                       delayMs: 250 * i,
                       child: Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(color: DeckColors.rule),
                           ),

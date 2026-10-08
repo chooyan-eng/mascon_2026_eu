@@ -41,7 +41,7 @@ class AssuranceSlide extends FlutterDeckSlideWidget {
               step: 2,
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     'Not the same assurance for',
                     style: TextStyle(fontSize: 28, color: DeckColors.muted),
                   ),

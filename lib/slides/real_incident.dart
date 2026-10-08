@@ -107,7 +107,7 @@ class RealIncidentSlide extends FlutterDeckSlideWidget {
                         const SizedBox(height: 20),
                         Container(
                           padding: const EdgeInsets.only(bottom: 4),
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(color: DeckColors.accentDark),
                             ),

@@ -96,7 +96,7 @@ class _Row extends StatelessWidget {
       step: step,
       delayMs: delayMs,
       child: Container(
-        decoration: const BoxDecoration(border: Border(top: BorderSide(color: DeckColors.rule))),
+        decoration: BoxDecoration(border: Border(top: BorderSide(color: DeckColors.rule))),
         padding: const EdgeInsets.symmetric(vertical: 28),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.baseline,

@@ -52,7 +52,7 @@ class InspectPackagesSlide extends FlutterDeckSlideWidget {
                       ),
                     ),
                   ),
-                  const VerticalDivider(color: DeckColors.line, width: 80, thickness: 1),
+                  VerticalDivider(color: DeckColors.line, width: 80, thickness: 1),
                   Expanded(
                     child: Enter(
                       delayMs: 300,

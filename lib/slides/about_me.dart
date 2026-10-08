@@ -36,7 +36,7 @@ class AboutMeSlide extends FlutterDeckSlideWidget {
                     width: 168,
                     height: 168,
                     padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.fromBorderSide(
                         BorderSide(color: DeckColors.accent),
@@ -87,7 +87,7 @@ class AboutMeSlide extends FlutterDeckSlideWidget {
                         ],
                       ),
                     ),
-                    const VerticalDivider(
+                    VerticalDivider(
                       color: DeckColors.line,
                       width: 80,
                       thickness: 1,

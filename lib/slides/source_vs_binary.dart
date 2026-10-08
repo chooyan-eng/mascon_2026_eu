@@ -67,7 +67,7 @@ class SourceVsBinarySlide extends FlutterDeckSlideWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: DeckColors.line)),
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -96,7 +96,7 @@ class SourceVsBinarySlide extends FlutterDeckSlideWidget {
                 Enter(
                   delayMs: 120 * i,
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: DeckColors.rule),
                       ),

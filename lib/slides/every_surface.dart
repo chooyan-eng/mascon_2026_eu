@@ -49,7 +49,7 @@ class EverySurfaceSlide extends FlutterDeckSlideWidget {
                 Enter(
                   delayMs: 300 * i,
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: DeckColors.rule),
                       ),

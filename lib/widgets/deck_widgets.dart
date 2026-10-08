@@ -405,8 +405,8 @@ class Bullets extends StatelessWidget {
       items: items,
       useSteps: useSteps,
       stepOffset: stepOffset,
-      bulletPointWidget: const Padding(
-        padding: EdgeInsets.only(top: 18),
+      bulletPointWidget: Padding(
+        padding: const EdgeInsets.only(top: 18),
         child: Icon(Icons.circle, size: 14, color: DeckColors.accent),
       ),
     );
