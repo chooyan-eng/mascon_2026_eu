@@ -3,6 +3,7 @@ import 'package:flutter_deck/flutter_deck.dart';
 
 import '../theme.dart';
 import '../widgets/design.dart';
+import '../widgets/web_view_dialog.dart';
 
 /// The software supply chain is more than packages: eight lanes flow into
 /// My app from upstream. On click, only the Packages lane stays lit.
@@ -136,10 +137,25 @@ class SupplyChainSlide extends FlutterDeckSlideWidget {
                   Positioned(
                     left: 120,
                     bottom: 110,
-                    child: Text(
-                      'Source: cheatsheetseries.owasp.org/cheatsheets'
-                      '/Software_Supply_Chain_Security_Cheat_Sheet.html',
-                      style: mono(18, color: DeckColors.faintest),
+                    child: MouseRegion(
+                      cursor: webViewSupported
+                          ? SystemMouseCursors.click
+                          : MouseCursor.defer,
+                      child: GestureDetector(
+                        onTap: webViewSupported
+                            ? () => openWebViewDialog(
+                                context,
+                                'https://cheatsheetseries.owasp.org/cheatsheets'
+                                '/Software_Supply_Chain_Security_Cheat_Sheet.html',
+                              )
+                            : null,
+                        child: Text(
+                          'Source: cheatsheetseries.owasp.org/cheatsheets'
+                          '/Software_Supply_Chain_Security_Cheat_Sheet.html'
+                          '${webViewSupported ? '  ↗' : ''}',
+                          style: mono(18, color: DeckColors.faintest),
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -9,7 +9,7 @@ class ThankYouSlide extends FlutterDeckSlideWidget {
     : super(
         configuration: const FlutterDeckSlideConfiguration(
           route: '/thank-you',
-          title: '29. Thank you',
+          title: '30. Thank you',
           speakerNotes: '- Q&A if the event format has it.',
         ),
       );

@@ -9,14 +9,14 @@ import '../dependency_graph/graph_view.dart';
 import '../theme.dart';
 import '../widgets/design.dart';
 
-/// 606 again: can we do this for every dependency? Honest answer: no.
+/// 458 again: can we do this for every dependency? Honest answer: no.
 /// The dependency graph from slide 04 sits ghosted in the background.
 class AllOfThemSlide extends FlutterDeckSlideWidget {
   const AllOfThemSlide()
     : super(
         configuration: const FlutterDeckSlideConfiguration(
           route: '/all-of-them',
-          title: '27. 606 again',
+          title: '27. 458 again',
           steps: 2,
           speakerNotes:
               '- Honest answer: no. Prioritize high-risk mechanisms, enumerate surfaces mechanically, '
@@ -40,7 +40,7 @@ class AllOfThemSlide extends FlutterDeckSlideWidget {
                 children: [
                   Enter(
                     child: Text(
-                      '606',
+                      '458',
                       style: fig(
                         252,
                         color: DeckColors.accent,
@@ -53,7 +53,7 @@ class AllOfThemSlide extends FlutterDeckSlideWidget {
                   Enter(
                     delayMs: 300,
                     child: Text(
-                      'Can we do this for all 606 dependencies?',
+                      'Can we do this for all 458 dependencies?',
                       style: fig(45),
                     ),
                   ),

@@ -47,6 +47,7 @@ export 'follow_one_hook.dart';
 export 'go_deeper_together.dart';
 export 'go_one_level_deeper.dart';
 export 'mitigation_revisited.dart';
+export 'publish_live.dart';
 export 'source_integrity_provenance.dart';
 export 'surface_triggers.dart';
 export 'two_impact_paths.dart';

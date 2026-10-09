@@ -9,16 +9,17 @@ class NumberSlide extends FlutterDeckSlideWidget {
     : super(
         configuration: const FlutterDeckSlideConfiguration(
           route: '/the-number',
-          title: '03. 606',
+          title: '03. 458',
           steps: 2,
           speakerNotes:
               '- The number counts up from 0. Ask the audience: can anyone guess what this number means?\n'
-              '- Measured with my dependency inspector: 283 Dart, 15 iOS, 308 Android. 86 of them are direct.\n'
+              '- Measured with my dependency inspector: 283 Dart, 15 iOS, 160 Android. 86 of them are direct.\n'
               '- The next slide shows the same data as a graph.\n'
-              '- Q&A prep: the Android count includes the Gradle build toolchain (about 90 artifacts) '
-              'and fine-grained Maven artifacts (Firebase alone is 25); iOS counts SwiftPM packages '
-              'only (15, mostly Firebase and Maps) — Apple ships the platform frameworks inside '
-              'the OS, so they never appear as dependencies.',
+              '- Q&A prep: the Gradle build toolchain (about 150 artifacts) is excluded — this count is '
+              'the dependencies that feed the app itself. Android is still bigger than iOS because '
+              'Maven artifacts are fine-grained (Firebase alone is about 25) while Apple ships '
+              'platform frameworks inside the OS and SwiftPM packages are coarse (firebase-ios-sdk '
+              'is one package).',
         ),
       );
 
@@ -32,7 +33,7 @@ class NumberSlide extends FlutterDeckSlideWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CountUp(
-              606,
+              458,
               from: 300,
               durationMs: 900,
               style: fig(
@@ -67,7 +68,7 @@ class _RatioBar extends StatelessWidget {
 
   static const dart = 283;
   static const ios = 15;
-  static const android = 308;
+  static const android = 160;
 
   @override
   Widget build(BuildContext context) {

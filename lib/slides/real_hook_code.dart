@@ -1,50 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_deck/flutter_deck.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../theme.dart';
 import '../widgets/design.dart';
-
-/// WebView is available on these platforms only (no web / Windows support).
-bool get _webViewSupported =>
-    !kIsWeb &&
-    (defaultTargetPlatform == TargetPlatform.macOS ||
-        defaultTargetPlatform == TargetPlatform.iOS ||
-        defaultTargetPlatform == TargetPlatform.android);
-
-/// Shows the hook's build.dart page on GitHub in a modal WebView.
-void _openSource(BuildContext context, String url) {
-  final controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse(url));
-  showGeneralDialog(
-    context: context,
-    barrierDismissible: true,
-    barrierLabel: 'source',
-    barrierColor: const Color(0xCC000000),
-    transitionDuration: const Duration(milliseconds: 200),
-    transitionBuilder: (context, animation, _, child) =>
-        FadeTransition(opacity: animation, child: child),
-    pageBuilder: (dialogContext, _, _) => Center(
-      child: FractionallySizedBox(
-        widthFactor: 0.85,
-        heightFactor: 0.88,
-        child: Container(
-          decoration: BoxDecoration(
-            color: DeckColors.background,
-            border: Border.all(color: DeckColors.accent),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: WebViewWidget(controller: controller),
-          ),
-        ),
-      ),
-    ),
-  );
-}
+import '../widgets/web_view_dialog.dart';
 
 /// Three cross-fading panels: what real build hooks do, with (dummy) code.
 class RealHookCodeSlide extends FlutterDeckSlideWidget {
@@ -205,12 +164,12 @@ class RealHookCodeSlide extends FlutterDeckSlideWidget {
                           ),
                           const SizedBox(height: 12),
                           MouseRegion(
-                            cursor: _webViewSupported
+                            cursor: webViewSupported
                                 ? SystemMouseCursors.click
                                 : MouseCursor.defer,
                             child: GestureDetector(
-                              onTap: _webViewSupported
-                                  ? () => _openSource(context, panel.url)
+                              onTap: webViewSupported
+                                  ? () => openWebViewDialog(context, panel.url)
                                   : null,
                               child: SizedBox(
                                 width: double.infinity,
@@ -218,7 +177,7 @@ class RealHookCodeSlide extends FlutterDeckSlideWidget {
                               ),
                             ),
                           ),
-                          if (_webViewSupported) ...[
+                          if (webViewSupported) ...[
                             const SizedBox(height: 12),
                             Text(
                               'tap to open on github.com',
